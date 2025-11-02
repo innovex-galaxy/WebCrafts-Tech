@@ -188,7 +188,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email Us</h3>
-                    <p className="text-sm text-muted-foreground">hello@webcraft.studio</p>
+                    <p className="text-sm text-muted-foreground">webcraftstech@gmail.com</p>
                   </div>
                 </div>
               </CardContent>
@@ -202,7 +202,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Call Us</h3>
-                    <p className="text-sm text-muted-foreground">+1 (757) 372-2055</p>
+                    <p className="text-sm text-muted-foreground">+1 (757) 372-2055 <a href="tel:+1-757-372-2055">1-757-372-2055</a></p>
                   </div>
                 </div>
               </CardContent>
