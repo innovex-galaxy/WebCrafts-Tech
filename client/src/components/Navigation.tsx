@@ -43,7 +43,7 @@ export default function Navigation() {
               className="text-xl font-bold font-display hover-elevate active-elevate-2 px-2 py-1 rounded-md"
               data-testid="link-logo"
             >
-              WebCraft
+              WebCraft Tech
             </button>
           </div>
 

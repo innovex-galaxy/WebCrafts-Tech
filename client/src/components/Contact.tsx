@@ -1,10 +1,22 @@
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, Clock } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
@@ -48,7 +60,7 @@ export default function Contact() {
             errorMessage = parsed.error || errorMessage;
           }
         } catch {
-          errorMessage = error.message.replace(/^\d{3}:\s*/, '');
+          errorMessage = error.message.replace(/^\d{3}:\s*/, "");
         }
       }
       toast({
@@ -76,17 +88,24 @@ export default function Contact() {
     <section id="contact" className="py-20 md:py-32 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">Let's Work Together</h2>
+          <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">
+            Let's Work Together
+          </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Ready to start your project? Get in touch and let's discuss how we can help
+            Ready to start your project? Get in touch and let's discuss how we
+            can help
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl font-display">Send us a message</CardTitle>
-              <CardDescription>Fill out the form below and we'll respond within 24 hours</CardDescription>
+              <CardTitle className="text-2xl font-display">
+                Send us a message
+              </CardTitle>
+              <CardDescription>
+                Fill out the form below and we'll respond within 24 hours
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -96,7 +115,9 @@ export default function Contact() {
                     id="name"
                     placeholder="Your name"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     required
                     data-testid="input-name"
                   />
@@ -109,7 +130,9 @@ export default function Contact() {
                     type="email"
                     placeholder="your@email.com"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                     required
                     data-testid="input-email"
                   />
@@ -119,10 +142,15 @@ export default function Contact() {
                   <Label htmlFor="project-type">Project Type</Label>
                   <Select
                     value={formData.projectType}
-                    onValueChange={(value) => setFormData({ ...formData, projectType: value })}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, projectType: value })
+                    }
                     required
                   >
-                    <SelectTrigger id="project-type" data-testid="select-project-type">
+                    <SelectTrigger
+                      id="project-type"
+                      data-testid="select-project-type"
+                    >
                       <SelectValue placeholder="Select project type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -139,7 +167,9 @@ export default function Contact() {
                   <Label htmlFor="budget">Budget Range</Label>
                   <Select
                     value={formData.budget}
-                    onValueChange={(value) => setFormData({ ...formData, budget: value })}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, budget: value })
+                    }
                     required
                   >
                     <SelectTrigger id="budget" data-testid="select-budget">
@@ -161,15 +191,17 @@ export default function Contact() {
                     placeholder="Tell us about your project..."
                     rows={4}
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
                     required
                     data-testid="input-message"
                   />
                 </div>
 
-                <Button 
-                  type="submit" 
-                  className="w-full" 
+                <Button
+                  type="submit"
+                  className="w-full"
                   data-testid="button-submit"
                   disabled={contactMutation.isPending}
                 >
@@ -188,7 +220,9 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email Us</h3>
-                    <p className="text-sm text-muted-foreground">webcraftstech@gmail.com</p>
+                    <p className="text-sm text-muted-foreground">
+                      webcraftstech@gmail.com
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -202,7 +236,10 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Call Us</h3>
-                    <p className="text-sm text-muted-foreground">+1 (757) 372-2055 <a href="tel:+1-757-372-2055">1-757-372-2055</a></p>
+                    <p className="text-sm text-muted-foreground">
+                      {" "}
+                      <a href="tel:+1-757-372-2055">1-757-372-2055</a>
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -216,7 +253,9 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Response Time</h3>
-                    <p className="text-sm text-muted-foreground">Within 24 hours</p>
+                    <p className="text-sm text-muted-foreground">
+                      Within 24 hours
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -224,11 +263,18 @@ export default function Contact() {
 
             <Card className="bg-primary text-primary-foreground">
               <CardContent className="p-8">
-                <h3 className="font-semibold text-lg mb-2">Ready to get started?</h3>
+                <h3 className="font-semibold text-lg mb-2">
+                  Ready to get started?
+                </h3>
                 <p className="text-sm opacity-90 mb-4">
-                  Schedule a free consultation call to discuss your project in detail
+                  Schedule a free consultation call to discuss your project in
+                  detail
                 </p>
-                <Button variant="secondary" className="w-full" data-testid="button-schedule">
+                <Button
+                  variant="secondary"
+                  className="w-full"
+                  data-testid="button-schedule"
+                >
                   Schedule a Call
                 </Button>
               </CardContent>

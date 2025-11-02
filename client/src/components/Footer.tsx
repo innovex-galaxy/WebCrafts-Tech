@@ -12,7 +12,9 @@ export default function Footer() {
 
   const newsletterMutation = useMutation({
     mutationFn: async (emailAddress: string) => {
-      const response = await apiRequest("POST", "/api/newsletter", { email: emailAddress });
+      const response = await apiRequest("POST", "/api/newsletter", {
+        email: emailAddress,
+      });
       return await response.json();
     },
     onSuccess: () => {
@@ -32,7 +34,7 @@ export default function Footer() {
             errorMessage = parsed.error || errorMessage;
           }
         } catch {
-          errorMessage = error.message.replace(/^\d{3}:\s*/, '');
+          errorMessage = error.message.replace(/^\d{3}:\s*/, "");
         }
       }
       toast({
@@ -60,9 +62,12 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="font-bold font-display text-lg mb-4">WebCraft</h3>
+            <h3 className="font-bold font-display text-lg mb-4">
+              WebCraft Tech
+            </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Building exceptional web experiences for businesses that value quality and results.
+              Building exceptional web experiences for businesses that value
+              quality and results.
             </p>
           </div>
 
@@ -165,9 +170,9 @@ export default function Footer() {
                 className="flex-1"
                 data-testid="input-newsletter"
               />
-              <Button 
-                type="submit" 
-                size="sm" 
+              <Button
+                type="submit"
+                size="sm"
                 data-testid="button-subscribe"
                 disabled={newsletterMutation.isPending}
               >
@@ -179,7 +184,7 @@ export default function Footer() {
 
         <div className="border-t pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-sm text-muted-foreground">
-            © 2024 WebCraft Studio. All rights reserved.
+            © 2024 WebCraft Tech. All rights reserved.
           </div>
           <div className="flex items-center gap-4">
             <button className="text-sm text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md">
