@@ -80,17 +80,19 @@ export default function Portfolio() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="p-0">
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag, i) => (
                         <Badge key={i} variant="secondary" data-testid={`badge-tag-${index}-${i}`}>
                           {tag}
                         </Badge>
                       ))}
                     </div>
+                    {/* Hidden for now - can be enabled later
                     <Button variant="outline" data-testid={`button-view-case-${index}`}>
                       View Case Study
                       <ExternalLink className="ml-2 h-4 w-4" />
                     </Button>
+                    */}
                   </CardContent>
                 </div>
               </div>
