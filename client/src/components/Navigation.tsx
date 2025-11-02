@@ -18,7 +18,6 @@ export default function Navigation() {
     { name: "Services", href: "#services" },
     { name: "Portfolio", href: "#portfolio" },
     { name: "Process", href: "#process" },
-    { name: "About", href: "#about" },
   ];
 
   const scrollToSection = (href: string) => {

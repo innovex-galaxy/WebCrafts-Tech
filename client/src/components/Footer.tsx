@@ -118,15 +118,6 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <button
-                  onClick={() => scrollToSection("#about")}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md -ml-2"
-                  data-testid="link-footer-about"
-                >
-                  About Us
-                </button>
-              </li>
-              <li>
-                <button
                   onClick={() => scrollToSection("#portfolio")}
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md -ml-2"
                   data-testid="link-footer-portfolio"
