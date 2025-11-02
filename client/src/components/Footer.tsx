@@ -23,9 +23,21 @@ export default function Footer() {
       setEmail("");
     },
     onError: (error: any) => {
+      let errorMessage = "Failed to subscribe. Please try again.";
+      if (error.message) {
+        try {
+          const match = error.message.match(/\d{3}:\s*(.+)/);
+          if (match && match[1]) {
+            const parsed = JSON.parse(match[1]);
+            errorMessage = parsed.error || errorMessage;
+          }
+        } catch {
+          errorMessage = error.message.replace(/^\d{3}:\s*/, '');
+        }
+      }
       toast({
         title: "Error",
-        description: error.message || "Failed to subscribe. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
     },

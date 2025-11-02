@@ -39,9 +39,21 @@ export default function Contact() {
       });
     },
     onError: (error: any) => {
+      let errorMessage = "Failed to send message. Please try again.";
+      if (error.message) {
+        try {
+          const match = error.message.match(/\d{3}:\s*(.+)/);
+          if (match && match[1]) {
+            const parsed = JSON.parse(match[1]);
+            errorMessage = parsed.error || errorMessage;
+          }
+        } catch {
+          errorMessage = error.message.replace(/^\d{3}:\s*/, '');
+        }
+      }
       toast({
         title: "Error",
-        description: error.message || "Failed to send message. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
     },
@@ -49,6 +61,14 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.projectType || !formData.budget) {
+      toast({
+        title: "Validation Error",
+        description: "Please select both project type and budget range.",
+        variant: "destructive",
+      });
+      return;
+    }
     contactMutation.mutate(formData);
   };
 
@@ -100,6 +120,7 @@ export default function Contact() {
                   <Select
                     value={formData.projectType}
                     onValueChange={(value) => setFormData({ ...formData, projectType: value })}
+                    required
                   >
                     <SelectTrigger id="project-type" data-testid="select-project-type">
                       <SelectValue placeholder="Select project type" />
@@ -119,6 +140,7 @@ export default function Contact() {
                   <Select
                     value={formData.budget}
                     onValueChange={(value) => setFormData({ ...formData, budget: value })}
+                    required
                   >
                     <SelectTrigger id="budget" data-testid="select-budget">
                       <SelectValue placeholder="Select budget range" />
