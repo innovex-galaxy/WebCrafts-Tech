@@ -60,7 +60,7 @@ export default function Footer() {
   return (
     <footer className="bg-card border-t">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
             <h3 className="font-bold font-display text-lg mb-4">
               WebCraft Tech
@@ -155,6 +155,7 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Newsletter section hidden - not working
           <div>
             <h4 className="font-semibold mb-4">Newsletter</h4>
             <p className="text-sm text-muted-foreground mb-4">
@@ -180,6 +181,7 @@ export default function Footer() {
               </Button>
             </form>
           </div>
+          */}
         </div>
 
         <div className="border-t pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
