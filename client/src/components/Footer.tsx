@@ -192,7 +192,7 @@ export default function Footer() {
               <Github className="h-4 w-4" />
             </Button>
             <Button size="icon" variant="ghost" asChild data-testid="link-linkedin">
-              <a href="https://linkedin.com/in/web-craft081595395" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/web-craft081595395" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="h-4 w-4" />
               </a>
             </Button>
