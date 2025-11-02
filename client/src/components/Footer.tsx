@@ -63,7 +63,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
             <h3 className="font-bold font-display text-lg mb-4">
-              WebCraft Tech
+              WebCrafts Tech
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Building exceptional web experiences for businesses that value
@@ -177,7 +177,7 @@ export default function Footer() {
 
         <div className="border-t pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-sm text-muted-foreground">
-            © 2024 WebCraft Tech. All rights reserved.
+            © 2024 WebCrafts Tech. All rights reserved.
           </div>
           <div className="flex items-center gap-4">
             <button className="text-sm text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md">
@@ -188,18 +188,45 @@ export default function Footer() {
             </button>
           </div>
           <div className="flex items-center gap-2">
-            <Button size="icon" variant="ghost" asChild data-testid="link-github">
-              <a href="https://github.com/webcraftstech" target="_blank" rel="noopener noreferrer">
+            <Button
+              size="icon"
+              variant="ghost"
+              asChild
+              data-testid="link-github"
+            >
+              <a
+                href="https://github.com/webcraftstech"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Github className="h-4 w-4" />
               </a>
             </Button>
-            <Button size="icon" variant="ghost" asChild data-testid="link-linkedin">
-              <a href="https://www.linkedin.com/in/web-craft081595395" target="_blank" rel="noopener noreferrer">
+            <Button
+              size="icon"
+              variant="ghost"
+              asChild
+              data-testid="link-linkedin"
+            >
+              <a
+                href="www.linkedin.com/in/webcrafts-tech-081595395"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Linkedin className="h-4 w-4" />
               </a>
             </Button>
-            <Button size="icon" variant="ghost" asChild data-testid="link-twitter">
-              <a href="https://x.com/webcraftsTech" target="_blank" rel="noopener noreferrer">
+            <Button
+              size="icon"
+              variant="ghost"
+              asChild
+              data-testid="link-twitter"
+            >
+              <a
+                href="https://x.com/webcraftsTech"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Twitter className="h-4 w-4" />
               </a>
             </Button>

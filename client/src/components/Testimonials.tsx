@@ -8,7 +8,7 @@ import client4 from "@assets/generated_images/Client_testimonial_photo_four_dd37
 
 const testimonials = [
   {
-    quote: "WebCraft Tech transformed our online presence completely. The new website has increased our conversions by 150% and the team was professional throughout the entire process.",
+    quote: "WebCrafts Tech transformed our online presence completely. The new website has increased our conversions by 150% and the team was professional throughout the entire process.",
     author: "Sarah Mitchell",
     role: "CEO",
     company: "TechCorp Industries",

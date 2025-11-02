@@ -18,6 +18,7 @@ export default function Navigation() {
     { name: "Services", href: "#services" },
     { name: "Portfolio", href: "#portfolio" },
     { name: "Process", href: "#process" },
+    { name: "About", href: "#about" },
   ];
 
   const scrollToSection = (href: string) => {
@@ -42,7 +43,7 @@ export default function Navigation() {
               className="text-xl font-bold font-display hover-elevate active-elevate-2 px-2 py-1 rounded-md"
               data-testid="link-logo"
             >
-              WebCraft Tech
+              WebCrafts Tech
             </button>
           </div>
 
