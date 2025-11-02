@@ -274,11 +274,8 @@ export default function Contact() {
                   variant="secondary"
                   className="w-full"
                   data-testid="button-schedule"
-                  asChild
                 >
-                  <a href="https://calendly.com/webcraftstech/30min" target="_blank" rel="noopener noreferrer">
-                    Schedule a Call
-                  </a>
+                  Schedule a Call
                 </Button>
               </CardContent>
             </Card>

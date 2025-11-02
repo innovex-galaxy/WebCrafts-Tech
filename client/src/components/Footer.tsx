@@ -209,7 +209,7 @@ export default function Footer() {
               data-testid="link-linkedin"
             >
               <a
-                href="www.linkedin.com/in/webcrafts-tech-081595395"
+                href="https://linkedin.com/in/webcrafts-tech-081595395"
                 target="_blank"
                 rel="noopener noreferrer"
               >
