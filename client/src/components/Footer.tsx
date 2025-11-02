@@ -203,8 +203,10 @@ export default function Footer() {
             <Button size="icon" variant="ghost" data-testid="link-linkedin">
               <Linkedin className="h-4 w-4" />
             </Button>
-            <Button size="icon" variant="ghost" data-testid="link-twitter">
-              <Twitter className="h-4 w-4" />
+            <Button size="icon" variant="ghost" asChild data-testid="link-twitter">
+              <a href="https://x.com/webcraftsTech" target="_blank" rel="noopener noreferrer">
+                <Twitter className="h-4 w-4" />
+              </a>
             </Button>
           </div>
         </div>
