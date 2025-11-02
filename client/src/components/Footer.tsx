@@ -3,19 +3,37 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Github, Linkedin, Twitter } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function Footer() {
   const { toast } = useToast();
   const [email, setEmail] = useState("");
 
+  const newsletterMutation = useMutation({
+    mutationFn: async (emailAddress: string) => {
+      const response = await apiRequest("POST", "/api/newsletter", { email: emailAddress });
+      return await response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Subscribed!",
+        description: "You'll receive our latest insights and updates.",
+      });
+      setEmail("");
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to subscribe. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Newsletter subscription:", email);
-    toast({
-      title: "Subscribed!",
-      description: "You'll receive our latest insights and updates.",
-    });
-    setEmail("");
+    newsletterMutation.mutate(email);
   };
 
   const scrollToSection = (href: string) => {
@@ -135,8 +153,13 @@ export default function Footer() {
                 className="flex-1"
                 data-testid="input-newsletter"
               />
-              <Button type="submit" size="sm" data-testid="button-subscribe">
-                Subscribe
+              <Button 
+                type="submit" 
+                size="sm" 
+                data-testid="button-subscribe"
+                disabled={newsletterMutation.isPending}
+              >
+                {newsletterMutation.isPending ? "..." : "Subscribe"}
               </Button>
             </form>
           </div>
