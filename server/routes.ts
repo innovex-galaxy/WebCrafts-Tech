@@ -3,13 +3,52 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema } from "@shared/schema";
 import { fromError } from "zod-validation-error";
+import { 
+  appendContactSubmission, 
+  appendNewsletterSubscription,
+  createContactFormSheet,
+  createNewsletterSheet 
+} from "./googleSheets";
+
+const CONTACT_SHEET_ID = process.env.CONTACT_SHEET_ID || "";
+const NEWSLETTER_SHEET_ID = process.env.NEWSLETTER_SHEET_ID || "";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  
+  app.post("/api/setup-sheets", async (req, res) => {
+    try {
+      const contactSheetId = await createContactFormSheet();
+      const newsletterSheetId = await createNewsletterSheet();
+      
+      res.json({ 
+        success: true, 
+        data: { 
+          contactSheetId,
+          newsletterSheetId,
+          message: "Spreadsheets created successfully. Please add these IDs to your environment secrets as CONTACT_SHEET_ID and NEWSLETTER_SHEET_ID"
+        }
+      });
+    } catch (error: any) {
+      res.status(500).json({ 
+        success: false, 
+        error: error.message || "Failed to create spreadsheets" 
+      });
+    }
+  });
   
   app.post("/api/contact", async (req, res) => {
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
       const submission = await storage.createContactSubmission(validatedData);
+      
+      if (CONTACT_SHEET_ID) {
+        try {
+          await appendContactSubmission(CONTACT_SHEET_ID, validatedData);
+        } catch (error) {
+          console.error("Failed to save to Google Sheets:", error);
+        }
+      }
+      
       res.json({ success: true, data: submission });
     } catch (error: any) {
       if (error.name === "ZodError") {
@@ -42,6 +81,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertNewsletterSubscriptionSchema.parse(req.body);
       const subscription = await storage.createNewsletterSubscription(validatedData);
+      
+      if (NEWSLETTER_SHEET_ID) {
+        try {
+          await appendNewsletterSubscription(NEWSLETTER_SHEET_ID, validatedData.email);
+        } catch (error) {
+          console.error("Failed to save to Google Sheets:", error);
+        }
+      }
+      
       res.json({ success: true, data: subscription });
     } catch (error: any) {
       if (error.name === "ZodError") {
