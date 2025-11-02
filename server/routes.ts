@@ -15,6 +15,15 @@ const NEWSLETTER_SHEET_ID = process.env.NEWSLETTER_SHEET_ID || "";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
+  app.get("/api/debug-env", async (req, res) => {
+    res.json({
+      contactSheetId: CONTACT_SHEET_ID,
+      newsletterSheetId: NEWSLETTER_SHEET_ID,
+      hasContactId: !!CONTACT_SHEET_ID,
+      hasNewsletterId: !!NEWSLETTER_SHEET_ID
+    });
+  });
+
   app.post("/api/setup-sheets", async (req, res) => {
     try {
       const contactSheetId = await createContactFormSheet();
