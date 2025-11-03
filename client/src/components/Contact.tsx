@@ -275,7 +275,7 @@ export default function Contact() {
                   className="w-full"
                   data-testid="button-schedule"
                 >
-                  Schedule a Call
+                  Schedule a Call for a Free Consultation
                 </Button>
               </CardContent>
             </Card>
