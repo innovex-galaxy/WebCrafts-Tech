@@ -82,7 +82,7 @@ export default function Portfolio() {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     data-testid={`img-project-${index}`}
                   />
                 </div>
