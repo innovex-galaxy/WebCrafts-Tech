@@ -273,9 +273,16 @@ export default function Contact() {
                 <Button
                   variant="secondary"
                   className="w-full"
+                  asChild
                   data-testid="button-schedule"
                 >
-                  Schedule a Call for a Free Consultation
+                  <a 
+                    href="https://calendly.com/webcraftstech/30min" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Schedule a Call for a Free Consultation
+                  </a>
                 </Button>
               </CardContent>
             </Card>
