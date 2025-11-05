@@ -16,7 +16,7 @@ import restaurantImg from "@assets/generated_images/Restaurant_website_project_8
 const projects = [
   {
     title: "Modern E-commerce Platform",
-    client: "RetailCo",
+    client: "Mary's Candles",
     description:
       "A full-featured e-commerce solution with advanced product filtering, secure checkout, and admin dashboard.",
     tags: ["E-commerce", "React", "Node.js"],
@@ -24,26 +24,26 @@ const projects = [
     featured: true,
   },
   {
-    title: "Corporate Website Redesign",
-    client: "TechCorp Industries",
+    title: "Local Business Website Redesign",
+    client: "Brow Studio",
     description:
-      "Complete brand refresh and website redesign focusing on user experience and conversion optimization.",
-    tags: ["Corporate", "Design", "SEO"],
+      "Complete brand refresh and website redesign focusing on user experience that makes booking and browsing effortless.",
+    tags: ["Booking", "Design", "Local Business"],
     image: corporateImg,
     featured: false,
   },
   {
-    title: "SaaS Dashboard Application",
-    client: "DataMetrics",
+    title: "Dental Practice",
+    client: "Quality Dental Care",
     description:
-      "Complex data visualization dashboard with real-time analytics and interactive reporting features.",
-    tags: ["Web App", "Dashboard", "Analytics"],
+      "A clean, modern website built for a dental practice — combining professional design with smooth functionality",
+    tags: ["Web App", "Health Care", "Professional"],
     image: webappImg,
     featured: true,
   },
   {
     title: "Restaurant Reservation System",
-    client: "Bistro Elegance",
+    client: "Efe Mediterranean",
     description:
       "Beautiful restaurant website with integrated reservation system and online menu management.",
     tags: ["Hospitality", "Booking", "CMS"],
