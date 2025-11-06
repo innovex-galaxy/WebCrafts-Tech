@@ -281,6 +281,13 @@ export default function Contact() {
                     href="https://calendly.com/webcraftstech/30min"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => {
+                      if (typeof window !== 'undefined' && (window as any).gtag) {
+                        (window as any).gtag('event', 'conversion', {
+                          'send_to': 'AW-17706434765/4hsKCLaDvrobEM2Bi_tB'
+                        });
+                      }
+                    }}
                   >
                     Schedule a Call for a Free Consultation
                   </a>

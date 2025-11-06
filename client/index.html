@@ -18,8 +18,7 @@
 
       gtag('config', 'AW-17706434765');
     </script>
-    <!-- Event snippet for Click to call conversion page
-    In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+    <!-- Event snippet for Click to call conversion page -->
     <script>
     function gtag_report_conversion(url) {
       var callback = function () {
@@ -31,6 +30,22 @@
           'send_to': 'AW-17706434765/slOtCJnuk7sbEM2Bi_tB',
           'value': 1.0,
           'currency': 'USD',
+          'event_callback': callback
+      });
+      return false;
+    }
+    </script>
+
+    <!-- Event snippet for Book appointment conversion page -->
+    <script>
+    function gtag_report_appointment_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-17706434765/4hsKCLaDvrobEM2Bi_tB',
           'event_callback': callback
       });
       return false;
