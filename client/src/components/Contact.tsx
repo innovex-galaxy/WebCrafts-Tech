@@ -176,6 +176,7 @@ export default function Contact() {
                       <SelectValue placeholder="Select budget range" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="0-5k">$0k - $5k</SelectItem>
                       <SelectItem value="5k-10k">$5k - $10k</SelectItem>
                       <SelectItem value="10k-25k">$10k - $25k</SelectItem>
                       <SelectItem value="25k-50k">$25k - $50k</SelectItem>
@@ -276,9 +277,9 @@ export default function Contact() {
                   asChild
                   data-testid="button-schedule"
                 >
-                  <a 
-                    href="https://calendly.com/webcraftstech/30min" 
-                    target="_blank" 
+                  <a
+                    href="https://calendly.com/webcraftstech/30min"
+                    target="_blank"
                     rel="noopener noreferrer"
                   >
                     Schedule a Call for a Free Consultation
