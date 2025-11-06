@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -17,6 +17,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, Clock } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
@@ -24,6 +30,7 @@ import { apiRequest } from "@/lib/queryClient";
 
 export default function Contact() {
   const { toast } = useToast();
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -83,6 +90,35 @@ export default function Contact() {
     }
     contactMutation.mutate(formData);
   };
+
+  const handleScheduleClick = () => {
+    // Track conversion
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'conversion', {
+        'send_to': 'AW-17706434765/4hsKCLaDvrobEM2Bi_tB'
+      });
+    }
+    setIsCalendlyOpen(true);
+  };
+
+  // Listen for Calendly events
+  useEffect(() => {
+    const handleCalendlyEvent = (e: MessageEvent) => {
+      if (e.data.event && e.data.event.indexOf('calendly') === 0) {
+        if (e.data.event === 'calendly.event_scheduled') {
+          // Booking completed, close modal and show success
+          setIsCalendlyOpen(false);
+          toast({
+            title: "Appointment Scheduled!",
+            description: "Thank you for scheduling a consultation with us.",
+          });
+        }
+      }
+    };
+
+    window.addEventListener('message', handleCalendlyEvent);
+    return () => window.removeEventListener('message', handleCalendlyEvent);
+  }, [toast]);
 
   return (
     <section id="contact" className="py-20 md:py-32 bg-muted/30">
@@ -274,29 +310,35 @@ export default function Contact() {
                 <Button
                   variant="secondary"
                   className="w-full"
-                  asChild
+                  onClick={handleScheduleClick}
                   data-testid="button-schedule"
                 >
-                  <a
-                    href="https://calendly.com/webcraftstech/30min"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => {
-                      if (typeof window !== 'undefined' && (window as any).gtag) {
-                        (window as any).gtag('event', 'conversion', {
-                          'send_to': 'AW-17706434765/4hsKCLaDvrobEM2Bi_tB'
-                        });
-                      }
-                    }}
-                  >
-                    Schedule a Call for a Free Consultation
-                  </a>
+                  Schedule a Call for a Free Consultation
                 </Button>
               </CardContent>
             </Card>
           </div>
         </div>
       </div>
+
+      {/* Calendly Modal */}
+      <Dialog open={isCalendlyOpen} onOpenChange={setIsCalendlyOpen}>
+        <DialogContent className="max-w-4xl h-[90vh] p-0">
+          <DialogHeader className="px-6 pt-6">
+            <DialogTitle>Schedule Your Free Consultation</DialogTitle>
+          </DialogHeader>
+          <div className="flex-1 overflow-hidden px-6 pb-6">
+            <iframe
+              src="https://calendly.com/webcraftstech/30min"
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              title="Schedule a consultation"
+              data-testid="iframe-calendly"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
