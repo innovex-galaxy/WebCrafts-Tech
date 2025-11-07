@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import {
   Card,
   CardContent,
@@ -30,6 +31,7 @@ import { apiRequest } from "@/lib/queryClient";
 
 export default function Contact() {
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -106,19 +108,23 @@ export default function Contact() {
     const handleCalendlyEvent = (e: MessageEvent) => {
       if (e.data.event && e.data.event.indexOf('calendly') === 0) {
         if (e.data.event === 'calendly.event_scheduled') {
-          // Booking completed, close modal and show success
+          // Booking completed, close modal and navigate home
           setIsCalendlyOpen(false);
           toast({
             title: "Appointment Scheduled!",
             description: "Thank you for scheduling a consultation with us.",
           });
+          // Navigate to home page after a brief delay to show the toast
+          setTimeout(() => {
+            setLocation('/');
+          }, 1500);
         }
       }
     };
 
     window.addEventListener('message', handleCalendlyEvent);
     return () => window.removeEventListener('message', handleCalendlyEvent);
-  }, [toast]);
+  }, [toast, setLocation]);
 
   return (
     <section id="contact" className="py-20 md:py-32 bg-muted/30">
