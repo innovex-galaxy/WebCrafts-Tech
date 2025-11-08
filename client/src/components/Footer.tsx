@@ -5,6 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Github, Linkedin, Twitter } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { Link } from "wouter";
 
 export default function Footer() {
   const { toast } = useToast();
@@ -189,12 +190,14 @@ export default function Footer() {
             © 2024 WebCrafts Tech. All rights reserved.
           </div>
           <div className="flex items-center gap-4">
-            <button className="text-sm text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md">
-              Privacy Policy
-            </button>
-            <button className="text-sm text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md">
+            <Link href="/privacy-policy">
+              <span className="text-sm text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md cursor-pointer" data-testid="link-privacy-policy">
+                Privacy Policy
+              </span>
+            </Link>
+            <span className="text-sm text-muted-foreground px-2 py-1 rounded-md opacity-50 cursor-not-allowed">
               Terms of Service
-            </button>
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <Button
