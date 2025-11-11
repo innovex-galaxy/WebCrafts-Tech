@@ -6,7 +6,7 @@ import { Github, Linkedin, Twitter } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { Link } from "wouter";
-import awsCloudPractitionerBadge from "@assets/stock_images/aws_cloud_practition_7f35c4fa.jpg";
+import awsCloudPractitionerBadge from "@assets/generated_images/aws-certified-cloud-practitioner.png";
 
 export default function Footer() {
   const { toast } = useToast();
@@ -215,7 +215,7 @@ export default function Footer() {
               Terms of Service
             </span>
           </div>
-          
+
           <div className="flex items-center gap-2">
             <Button
               size="icon"
