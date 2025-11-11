@@ -1,36 +1,49 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Code, Palette, Smartphone, Layout, Globe, Settings } from "lucide-react";
+import {
+  Code,
+  Palette,
+  Smartphone,
+  Layout,
+  Globe,
+  Settings,
+} from "lucide-react";
 
 const services = [
   {
     icon: Code,
     title: "Website Design & Development",
-    description: "Creative, responsive websites for businesses of all sizes, including corporate and e-commerce solutions.",
+    description:
+      "Creative, responsive websites for businesses of all sizes, including corporate and e-commerce solutions.",
   },
   {
     icon: Palette,
     title: "Logo & Brand Identity Design",
-    description: "Build a memorable brand with custom logos and visual branding that reflect your business identity.",
+    description:
+      "Build a memorable brand with custom logos and visual branding that reflect your business identity.",
   },
   {
     icon: Smartphone,
     title: "Mobile App Development",
-    description: "Native and cross-platform apps for Android, iOS, and hybrid environments.",
+    description:
+      "Native and cross-platform apps for Android, iOS, and hybrid environments.",
   },
   {
     icon: Layout,
     title: "UI/UX Design",
-    description: "Intuitive and engaging user interfaces designed to enhance user experience and drive engagement.",
+    description:
+      "Intuitive and engaging user interfaces designed to enhance user experience and drive engagement.",
   },
   {
     icon: Globe,
     title: "Web & Portal Development",
-    description: "Dynamic web applications and portals tailored to your business operations.",
+    description:
+      "Dynamic web applications and portals tailored to your business operations.",
   },
   {
     icon: Settings,
     title: "Custom Software Development",
-    description: "Multi-platform, scalable software built to match your exact business requirements.",
+    description:
+      "Multi-platform, scalable software built to match your exact business requirements.",
   },
 ];
 
@@ -39,10 +52,14 @@ export default function About() {
     <section id="about" className="py-20 md:py-32 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">About Us</h2>
+          <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">
+            About Us
+          </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            We provide a full range of affordable web services for individuals, small businesses, and large enterprises. 
-            Our approach begins with understanding your target market and tailoring solutions to meet your specific website needs.
+            We provide a full range of affordable web services for individuals,
+            small businesses, and large enterprises. Our approach begins with
+            understanding your target market and tailoring solutions to meet
+            your specific website needs.
           </p>
         </div>
 
@@ -60,9 +77,7 @@ export default function About() {
                 <CardTitle className="text-xl">{service.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
-                  {service.description}
-                </p>
+                <p className="text-muted-foreground">{service.description}</p>
               </CardContent>
             </Card>
           ))}
@@ -70,10 +85,12 @@ export default function About() {
 
         <div className="text-center mt-12">
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            All our services are available on a <strong>project-based</strong> or <strong>dedicated resource model</strong>.
+            All our services are available on a <strong>project-based</strong>{" "}
+            or <strong>dedicated resource model</strong>.
           </p>
         </div>
       </div>
+      
     </section>
   );
 }

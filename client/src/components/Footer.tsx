@@ -6,6 +6,7 @@ import { Github, Linkedin, Twitter } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { Link } from "wouter";
+import awsCloudPractitionerBadge from "@assets/stock_images/aws_cloud_practition_7f35c4fa.jpg";
 
 export default function Footer() {
   const { toast } = useToast();
@@ -66,10 +67,22 @@ export default function Footer() {
             <h3 className="font-bold font-display text-lg mb-4">
               WebCrafts Tech
             </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
               Building exceptional web experiences for businesses that value
               quality and results.
             </p>
+            <div className="flex items-center gap-3">
+              <img
+                src={awsCloudPractitionerBadge}
+                alt="AWS Certified Cloud Practitioner"
+                className="h-16 w-16 object-contain"
+                data-testid="img-aws-certification"
+              />
+              <div className="text-xs text-muted-foreground">
+                <div className="font-semibold">AWS Certified</div>
+                <div>Cloud Practitioner</div>
+              </div>
+            </div>
           </div>
 
           <div>
@@ -191,7 +204,10 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-4">
             <Link href="/privacy-policy">
-              <span className="text-sm text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md cursor-pointer" data-testid="link-privacy-policy">
+              <span
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors hover-elevate px-2 py-1 rounded-md cursor-pointer"
+                data-testid="link-privacy-policy"
+              >
                 Privacy Policy
               </span>
             </Link>
@@ -199,6 +215,7 @@ export default function Footer() {
               Terms of Service
             </span>
           </div>
+          
           <div className="flex items-center gap-2">
             <Button
               size="icon"
