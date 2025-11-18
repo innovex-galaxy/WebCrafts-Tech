@@ -6,7 +6,7 @@ import { Github, Linkedin, Twitter } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { Link } from "wouter";
-import awsCloudPractitionerBadge from "@assets/generated_images/aws-certified-cloud-practitioner.png";
+import awsCloudPractitionerBadge from "@assets/generated_images/cloud_practitioner.png";
 
 export default function Footer() {
   const { toast } = useToast();
