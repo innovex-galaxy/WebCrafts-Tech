@@ -1,35 +1,88 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { google } from 'googleapis';
+import { Resend } from 'resend';
 
-async function getGoogleSheetsClient() {
-  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
-
-  if (!email || !privateKey) {
-    console.log('Google Sheets credentials not configured');
-    return null;
+async function sendContactEmail(data: {
+  name: string;
+  email: string;
+  projectType: string;
+  budget: string;
+  message: string;
+}) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.log('RESEND_API_KEY not configured');
+    return false;
   }
 
-  const auth = new google.auth.JWT(
-    email,
-    undefined,
-    privateKey,
-    ['https://www.googleapis.com/auth/spreadsheets']
-  );
+  const resend = new Resend(apiKey);
 
-  return google.sheets({ version: 'v4', auth });
+  try {
+    await resend.emails.send({
+      from: 'WebCrafts Tech <onboarding@resend.dev>',
+      to: 'webcraftstech@gmail.com',
+      subject: `New Contact Form Submission from ${data.name}`,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Project Type:</strong> ${data.projectType}</p>
+        <p><strong>Budget:</strong> ${data.budget}</p>
+        <h3>Message:</h3>
+        <p>${data.message.replace(/\n/g, '<br>')}</p>
+        <hr>
+        <p style="color: #666; font-size: 12px;">Sent from WebCrafts Tech contact form</p>
+      `
+    });
+    console.log('Contact email sent successfully');
+    return true;
+  } catch (error) {
+    console.error('Failed to send contact email:', error);
+    return false;
+  }
 }
 
-async function appendToSheet(spreadsheetId: string, range: string, values: any[][]) {
-  const sheets = await getGoogleSheetsClient();
-  if (!sheets) return;
-  
-  await sheets.spreadsheets.values.append({
-    spreadsheetId,
-    range,
-    valueInputOption: 'USER_ENTERED',
-    requestBody: { values }
-  });
+async function sendNewsletterEmails(email: string) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.log('RESEND_API_KEY not configured');
+    return false;
+  }
+
+  const resend = new Resend(apiKey);
+
+  try {
+    // Send confirmation to subscriber
+    await resend.emails.send({
+      from: 'WebCrafts Tech <onboarding@resend.dev>',
+      to: email,
+      subject: 'Welcome to WebCrafts Tech Newsletter!',
+      html: `
+        <h2>Thanks for subscribing!</h2>
+        <p>You're now subscribed to the WebCrafts Tech newsletter.</p>
+        <p>We'll keep you updated with the latest web development tips, industry news, and exclusive offers.</p>
+        <br>
+        <p>Best regards,<br>The WebCrafts Tech Team</p>
+      `
+    });
+
+    // Notify admin
+    await resend.emails.send({
+      from: 'WebCrafts Tech <onboarding@resend.dev>',
+      to: 'webcraftstech@gmail.com',
+      subject: `New Newsletter Subscriber: ${email}`,
+      html: `
+        <h2>New Newsletter Subscription</h2>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+      `
+    });
+    
+    console.log('Newsletter emails sent successfully');
+    return true;
+  } catch (error) {
+    console.error('Failed to send newsletter emails:', error);
+    return false;
+  }
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -78,24 +131,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         });
       }
 
-      const sheetId = process.env.CONTACT_SHEET_ID;
-      if (sheetId) {
-        try {
-          await appendToSheet(sheetId, 'Contact Submissions!A:F', [[
-            new Date().toISOString(),
-            name,
-            email,
-            projectType || '',
-            budget || '',
-            message
-          ]]);
-          console.log('Contact saved to Google Sheets');
-        } catch (sheetError) {
-          console.error('Google Sheets error:', sheetError);
-        }
-      } else {
-        console.log('CONTACT_SHEET_ID not configured');
-      }
+      // Send email notification
+      await sendContactEmail({ name, email, projectType: projectType || '', budget: budget || '', message });
 
       return res.status(200).json({ 
         success: true, 
@@ -116,20 +153,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         });
       }
 
-      const sheetId = process.env.NEWSLETTER_SHEET_ID;
-      if (sheetId) {
-        try {
-          await appendToSheet(sheetId, 'Subscribers!A:B', [[
-            new Date().toISOString(),
-            email
-          ]]);
-          console.log('Newsletter saved to Google Sheets');
-        } catch (sheetError) {
-          console.error('Google Sheets error:', sheetError);
-        }
-      } else {
-        console.log('NEWSLETTER_SHEET_ID not configured');
-      }
+      // Send newsletter emails
+      await sendNewsletterEmails(email);
 
       return res.status(200).json({ 
         success: true, 
