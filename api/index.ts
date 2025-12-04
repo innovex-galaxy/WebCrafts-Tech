@@ -6,7 +6,8 @@ async function getGoogleSheetsClient() {
   const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
 
   if (!email || !privateKey) {
-    throw new Error('Google Sheets credentials not configured');
+    console.log('Google Sheets credentials not configured');
+    return null;
   }
 
   const auth = new google.auth.JWT(
@@ -21,6 +22,7 @@ async function getGoogleSheetsClient() {
 
 async function appendToSheet(spreadsheetId: string, range: string, values: any[][]) {
   const sheets = await getGoogleSheetsClient();
+  if (!sheets) return;
   
   await sheets.spreadsheets.values.append({
     spreadsheetId,
@@ -31,80 +33,96 @@ async function appendToSheet(spreadsheetId: string, range: string, values: any[]
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
+  // Handle preflight
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
-  const path = req.url?.replace('/api', '') || '';
+  // Parse the path from the URL
+  const url = new URL(req.url || '', `https://${req.headers.host}`);
+  const path = url.pathname.replace('/api', '');
 
   try {
+    // Health check
+    if (path === '/health' || path === '') {
+      return res.status(200).json({ status: 'ok', path });
+    }
+
+    // Contact form
     if (req.method === 'POST' && path === '/contact') {
-      const { name, email, projectType, budget, message } = req.body;
+      const { name, email, projectType, budget, message } = req.body || {};
 
       if (!name || !email || !message) {
         return res.status(400).json({ 
           success: false, 
-          message: 'Name, email, and message are required' 
+          error: 'Name, email, and message are required' 
         });
       }
 
       const sheetId = process.env.CONTACT_SHEET_ID;
       if (sheetId) {
-        await appendToSheet(sheetId, 'Contact Submissions!A:F', [[
-          new Date().toISOString(),
-          name,
-          email,
-          projectType || '',
-          budget || '',
-          message
-        ]]);
+        try {
+          await appendToSheet(sheetId, 'Contact Submissions!A:F', [[
+            new Date().toISOString(),
+            name,
+            email,
+            projectType || '',
+            budget || '',
+            message
+          ]]);
+        } catch (sheetError) {
+          console.error('Google Sheets error:', sheetError);
+        }
       }
 
       return res.status(200).json({ 
         success: true, 
-        message: 'Message sent successfully' 
+        data: { name, email, projectType, budget, message }
       });
     }
 
+    // Newsletter
     if (req.method === 'POST' && path === '/newsletter') {
-      const { email } = req.body;
+      const { email } = req.body || {};
 
       if (!email) {
         return res.status(400).json({ 
           success: false, 
-          message: 'Email is required' 
+          error: 'Email is required' 
         });
       }
 
       const sheetId = process.env.NEWSLETTER_SHEET_ID;
       if (sheetId) {
-        await appendToSheet(sheetId, 'Subscribers!A:B', [[
-          new Date().toISOString(),
-          email
-        ]]);
+        try {
+          await appendToSheet(sheetId, 'Subscribers!A:B', [[
+            new Date().toISOString(),
+            email
+          ]]);
+        } catch (sheetError) {
+          console.error('Google Sheets error:', sheetError);
+        }
       }
 
       return res.status(200).json({ 
         success: true, 
-        message: 'Subscribed successfully' 
+        data: { email }
       });
     }
 
-    if (req.method === 'GET' && path === '/health') {
-      return res.status(200).json({ status: 'ok' });
-    }
-
-    return res.status(404).json({ message: 'Not found' });
+    // Not found
+    return res.status(404).json({ error: 'Not found', path });
 
   } catch (error) {
     console.error('API Error:', error);
     return res.status(500).json({ 
       success: false, 
-      message: 'Internal server error' 
+      error: 'Internal server error' 
     });
   }
 }
