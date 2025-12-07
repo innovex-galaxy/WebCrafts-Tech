@@ -57,7 +57,7 @@ export async function sendContactNotification(data: {
   try {
     await resend.emails.send({
       from: credentials.fromEmail,
-      to: 'webcraftstech@gmail.com',
+      to: 'kalizada24@gmail.com',
       subject: `New Contact Form Submission from ${data.name}`,
       html: `
         <h2>New Contact Form Submission</h2>
@@ -105,7 +105,7 @@ export async function sendNewsletterConfirmation(email: string) {
 
     await resend.emails.send({
       from: credentials.fromEmail,
-      to: 'webcraftstech@gmail.com',
+      to: 'kalizada24@gmail.com',
       subject: `New Newsletter Subscriber: ${email}`,
       html: `
         <h2>New Newsletter Subscription</h2>

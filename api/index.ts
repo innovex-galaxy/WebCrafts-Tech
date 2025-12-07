@@ -19,7 +19,7 @@ async function sendContactEmail(data: {
   try {
     await resend.emails.send({
       from: 'WebCrafts Tech <onboarding@resend.dev>',
-      to: 'webcraftstech@gmail.com',
+      to: 'kalizada24@gmail.com',
       subject: `New Contact Form Submission from ${data.name}`,
       html: `
         <h2>New Contact Form Submission</h2>
@@ -51,24 +51,13 @@ async function sendNewsletterEmails(email: string) {
   const resend = new Resend(apiKey);
 
   try {
-    // Send confirmation to subscriber
-    await resend.emails.send({
-      from: 'WebCrafts Tech <onboarding@resend.dev>',
-      to: email,
-      subject: 'Welcome to WebCrafts Tech Newsletter!',
-      html: `
-        <h2>Thanks for subscribing!</h2>
-        <p>You're now subscribed to the WebCrafts Tech newsletter.</p>
-        <p>We'll keep you updated with the latest web development tips, industry news, and exclusive offers.</p>
-        <br>
-        <p>Best regards,<br>The WebCrafts Tech Team</p>
-      `
-    });
+    // Note: Subscriber confirmation email disabled until domain is verified
+    // Currently can only send to kalizada24@gmail.com (Resend signup email)
 
     // Notify admin
     await resend.emails.send({
       from: 'WebCrafts Tech <onboarding@resend.dev>',
-      to: 'webcraftstech@gmail.com',
+      to: 'kalizada24@gmail.com',
       subject: `New Newsletter Subscriber: ${email}`,
       html: `
         <h2>New Newsletter Subscription</h2>
