@@ -56,7 +56,7 @@ export async function sendContactNotification(data: {
 
   try {
     await resend.emails.send({
-      from: credentials.fromEmail,
+      from: 'WebCrafts Tech <onboarding@resend.dev>',
       to: 'kalizada24@gmail.com',
       subject: `New Contact Form Submission from ${data.name}`,
       html: `
@@ -90,21 +90,9 @@ export async function sendNewsletterConfirmation(email: string) {
   const resend = new Resend(credentials.apiKey);
 
   try {
+    // Note: Only sending admin notification - subscriber emails disabled until domain verified
     await resend.emails.send({
-      from: credentials.fromEmail,
-      to: email,
-      subject: 'Welcome to WebCrafts Tech Newsletter!',
-      html: `
-        <h2>Thanks for subscribing!</h2>
-        <p>You're now subscribed to the WebCrafts Tech newsletter.</p>
-        <p>We'll keep you updated with the latest web development tips, industry news, and exclusive offers.</p>
-        <br>
-        <p>Best regards,<br>The WebCrafts Tech Team</p>
-      `
-    });
-
-    await resend.emails.send({
-      from: credentials.fromEmail,
+      from: 'WebCrafts Tech <onboarding@resend.dev>',
       to: 'kalizada24@gmail.com',
       subject: `New Newsletter Subscriber: ${email}`,
       html: `
